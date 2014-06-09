@@ -4,9 +4,16 @@ $.index.open();
 updateGoal();
 
 function addAmount() {
-	total += parseInt($.amountField.value);
-	$.totalLabel.text = total;
-	$.amountField.blur();
+	
+	// leave the keyboard up until you enter something.
+	if($.amountField.value) {
+		total += parseInt($.amountField.value);
+		$.totalLabel.text = total;
+		
+		// hide the keyboard
+		$.amountField.blur();
+	}
+	
 }
 
 function saveGoal() {

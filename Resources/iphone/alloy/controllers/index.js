@@ -1,11 +1,12 @@
 function Controller() {
     function addAmount() {
-        total += parseInt($.amountField.value);
-        $.totalLabel.text = total;
-        $.amountField.blur();
+        if ($.amountField.value) {
+            total += parseInt($.amountField.value);
+            $.totalLabel.text = total;
+            $.amountField.blur();
+        }
     }
     function saveGoal() {
-        Ti.API.info("goalField Text: " + $.goalField.value + "----");
         $.goalField.value && Ti.App.Properties.setInt("goal", $.goalField.value);
     }
     function updateGoal() {
@@ -28,7 +29,7 @@ function Controller() {
     var __alloyId0 = [];
     $.__views.__alloyId2 = Ti.UI.createWindow({
         backgroundColor: "#fff",
-        title: "Tab 1",
+        title: "Home",
         id: "__alloyId2"
     });
     $.__views.mainView = Ti.UI.createView({
@@ -146,9 +147,8 @@ function Controller() {
     updateGoal ? $.__views.__alloyId1.addEventListener("focus", updateGoal) : __defers["$.__views.__alloyId1!focus!updateGoal"] = true;
     $.__views.__alloyId9 = Ti.UI.createWindow({
         backgroundColor: "#fff",
-        title: "Tab 2",
+        title: "Settings",
         layout: "horizontal",
-        top: "10",
         id: "__alloyId9"
     });
     $.__views.__alloyId10 = Ti.UI.createLabel({

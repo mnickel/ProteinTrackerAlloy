@@ -1,10 +1,12 @@
 function Controller() {
     function addAmount() {
-        total += parseInt($.amountField.value);
-        $.totalLabel.text = total;
+        if ($.amountField.value) {
+            total += parseInt($.amountField.value);
+            $.totalLabel.text = total;
+            $.amountField.blur();
+        }
     }
     function saveGoal() {
-        Ti.API.info("goalField Text: " + $.goalField.value + "----");
         $.goalField.value && Ti.App.Properties.setInt("goal", $.goalField.value);
     }
     function updateGoal() {
@@ -12,6 +14,9 @@ function Controller() {
         null == goal && (goal = 0);
         $.goalLabel.text = goal;
         $.goalField.value = goal;
+    }
+    function doneGoal() {
+        $.goalField.blur();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -59,6 +64,7 @@ function Controller() {
         width: 100,
         keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL,
+        returnKeyType: Ti.UI.RETURNKEY_DONE,
         id: "amountField"
     });
     $.__views.__alloyId3.add($.__views.amountField);
@@ -143,7 +149,6 @@ function Controller() {
         backgroundColor: "#fff",
         title: "Tab 2",
         layout: "horizontal",
-        top: "10",
         id: "__alloyId9"
     });
     $.__views.__alloyId10 = Ti.UI.createLabel({
@@ -165,6 +170,7 @@ function Controller() {
         width: 100,
         keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL,
+        returnKeyType: Ti.UI.RETURNKEY_DONE,
         id: "goalField"
     });
     $.__views.__alloyId9.add($.__views.goalField);
@@ -189,6 +195,7 @@ function Controller() {
     __defers["$.__views.addButton!click!addAmount"] && $.__views.addButton.addEventListener("click", addAmount);
     __defers["$.__views.__alloyId1!focus!updateGoal"] && $.__views.__alloyId1.addEventListener("focus", updateGoal);
     __defers["$.__views.goalField!change!saveGoal"] && $.__views.goalField.addEventListener("change", saveGoal);
+    __defers["$.__views.goalDoneButton!click!doneGoal"] && $.__views.goalDoneButton.addEventListener("click", doneGoal);
     _.extend($, exports);
 }
 

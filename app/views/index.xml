@@ -1,7 +1,7 @@
 <Alloy>
 	<TabGroup>
 		<Tab title="Home" icon="KS_nav_ui.png" onFocus="updateGoal">
-			<Window title="Tab 1">
+			<Window title="Home">
 				<View id="mainView">
 					<View class="rowLayout">
 						<Label top="10">Amount:</Label>
@@ -18,10 +18,10 @@
 			</Window>
 		</Tab>
 		<Tab title="Settings" icon="KS_nav_views.png">
-			<Window title="Tab 2" layout="horizontal" top="10">
+			<Window title="Settings" layout="horizontal">
 				<Label>Goal:</Label>
 				<TextField id="goalField" onChange="saveGoal"></TextField>
-				<Button id="goalDoneButton" onClick="doneGoal">Done</Button>
+				<Button id="goalDoneButton" platform="ios" onClick="doneGoal">Done</Button>
 			</Window>
 		</Tab>
 	</TabGroup>
