@@ -9,5 +9,24 @@
 		fontSize: 20,
 		fontFamily: 'Helvetica Neue'
 	},
-	textAlign: 'center'
-} 
+	textAlign: 'center',
+	left: 10
+},
+
+"#mainView": {
+	layout: "vertical"
+},
+
+".rowLayout": {
+	layout: "horizontal",
+	height: 80,
+	top: 10
+},
+
+"TextField": {
+	left: 10,
+	width: 100,
+	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL,
+	returnKeyType : Ti.UI.RETURNKEY_DONE
+}

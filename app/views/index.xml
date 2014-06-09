@@ -1,13 +1,27 @@
 <Alloy>
 	<TabGroup>
-		<Tab title="Tab 1" icon="KS_nav_ui.png">
+		<Tab title="Home" icon="KS_nav_ui.png" onFocus="updateGoal">
 			<Window title="Tab 1">
-				<Label>I am Window 1</Label>
+				<View id="mainView">
+					<View class="rowLayout">
+						<Label top="10">Amount:</Label>
+						<TextField id="amountField"></TextField>
+						<Button id="addButton" onClick="addAmount">Add</Button>
+					</View>
+					<View class="rowLayout">
+						<Label>Total:</Label>
+						<Label id="totalLabel">0</Label>
+						<Label>Goal:</Label>
+						<Label id="goalLabel">0</Label>
+					</View>
+				</View>
 			</Window>
 		</Tab>
-		<Tab title="Tab 2" icon="KS_nav_views.png">
-			<Window title="Tab 2">
-				<Label>I am Window 2</Label>
+		<Tab title="Settings" icon="KS_nav_views.png">
+			<Window title="Tab 2" layout="horizontal" top="10">
+				<Label>Goal:</Label>
+				<TextField id="goalField" onChange="saveGoal"></TextField>
+				<Button id="goalDoneButton" onClick="doneGoal">Done</Button>
 			</Window>
 		</Tab>
 	</TabGroup>
