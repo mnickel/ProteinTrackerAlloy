@@ -22,6 +22,8 @@
 				<Label>Goal:</Label>
 				<TextField id="goalField" onChange="saveGoal"></TextField>
 				<Button id="goalDoneButton" platform="ios" onClick="doneGoal">Done</Button>
+				<LoginButton id="fbLoginButton" ns="Alloy.Globals.Facebook" />
+				<Button id="postButton" visible="false" onClick="doFBPost">Post</Button>
 			</Window>
 		</Tab>
 	</TabGroup>

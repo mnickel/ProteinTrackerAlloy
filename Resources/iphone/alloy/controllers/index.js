@@ -18,6 +18,11 @@ function Controller() {
     function doneGoal() {
         $.goalField.blur();
     }
+    function doFBPost() {
+        var data = {};
+        var facebook = Alloy.Globals.Facebook;
+        facebook.dialog("feed", data, function() {});
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -181,6 +186,18 @@ function Controller() {
     });
     $.__views.__alloyId9.add($.__views.goalDoneButton);
     doneGoal ? $.__views.goalDoneButton.addEventListener("click", doneGoal) : __defers["$.__views.goalDoneButton!click!doneGoal"] = true;
+    $.__views.fbLoginButton = Alloy.Globals.Facebook.createLoginButton({
+        id: "fbLoginButton",
+        ns: "Alloy.Globals.Facebook"
+    });
+    $.__views.__alloyId9.add($.__views.fbLoginButton);
+    $.__views.postButton = Ti.UI.createButton({
+        title: "Post",
+        id: "postButton",
+        visible: "false"
+    });
+    $.__views.__alloyId9.add($.__views.postButton);
+    doFBPost ? $.__views.postButton.addEventListener("click", doFBPost) : __defers["$.__views.postButton!click!doFBPost"] = true;
     $.__views.__alloyId8 = Ti.UI.createTab({
         window: $.__views.__alloyId9,
         title: "Settings",
@@ -196,12 +213,22 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var total = 0;
+    var facebook = Alloy.Globals.Facebook;
+    facebook.appid = 0x510f407b65ab2;
+    facebook.permissions = [ "publish_stream" ];
+    facebook.addEventListener("login", function(e) {
+        e.success && ($.postButton.visible = true);
+    });
+    facebook.addEventListener("logout", function(e) {
+        e.success && ($.postButton.visible = false);
+    });
     $.index.open();
     updateGoal();
     __defers["$.__views.addButton!click!addAmount"] && $.__views.addButton.addEventListener("click", addAmount);
     __defers["$.__views.__alloyId1!focus!updateGoal"] && $.__views.__alloyId1.addEventListener("focus", updateGoal);
     __defers["$.__views.goalField!change!saveGoal"] && $.__views.goalField.addEventListener("change", saveGoal);
     __defers["$.__views.goalDoneButton!click!doneGoal"] && $.__views.goalDoneButton.addEventListener("click", doneGoal);
+    __defers["$.__views.postButton!click!doFBPost"] && $.__views.postButton.addEventListener("click", doFBPost);
     _.extend($, exports);
 }
 

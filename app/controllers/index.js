@@ -1,5 +1,18 @@
 var total = 0;
 
+var facebook = Alloy.Globals.Facebook;
+facebook.appid = 1426015171009202;
+facebook.permissions = ["publish_stream"];
+facebook.addEventListener('login', function(e) {
+	if( e.success ) {
+		$.postButton.visible = true;
+	}
+});
+
+facebook.addEventListener('logout', function(e) {
+	$.postButton.visible = false;
+});
+
 $.index.open();
 updateGoal();
 
@@ -38,4 +51,10 @@ function updateGoal() {
 function doneGoal() {
 	//Get rid of the keyboard by blurring the field.
 	$.goalField.blur();
+}
+
+function doFBPost() {
+	var data = {};
+	var facebook = Alloy.Globals.Facebook;
+	facebook.dialog("feed", data, function(e) {});
 }
