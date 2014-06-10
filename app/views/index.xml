@@ -14,6 +14,8 @@
 						<Label>Goal:</Label>
 						<Label id="goalLabel">0</Label>
 					</View>
+					<Button onClick="saveFile">Save File</Button>
+					<Button onClick="loadFile">Load File</Button>
 				</View>
 			</Window>
 		</Tab>

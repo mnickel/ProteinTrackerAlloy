@@ -23,6 +23,17 @@ function Controller() {
         var facebook = Alloy.Globals.Facebook;
         facebook.dialog("feed", data, function() {});
     }
+    function saveFile() {
+        var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "test.txt");
+        file.exists && file.deleteFile();
+        file.write(total.toString());
+        file = null;
+    }
+    function loadFile() {
+        var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "test.txt");
+        alert("Total read: " + file.read().text);
+        file = null;
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -142,6 +153,18 @@ function Controller() {
         id: "goalLabel"
     });
     $.__views.__alloyId5.add($.__views.goalLabel);
+    $.__views.__alloyId8 = Ti.UI.createButton({
+        title: "Save File",
+        id: "__alloyId8"
+    });
+    $.__views.mainView.add($.__views.__alloyId8);
+    saveFile ? $.__views.__alloyId8.addEventListener("click", saveFile) : __defers["$.__views.__alloyId8!click!saveFile"] = true;
+    $.__views.__alloyId9 = Ti.UI.createButton({
+        title: "Load File",
+        id: "__alloyId9"
+    });
+    $.__views.mainView.add($.__views.__alloyId9);
+    loadFile ? $.__views.__alloyId9.addEventListener("click", loadFile) : __defers["$.__views.__alloyId9!click!loadFile"] = true;
     $.__views.__alloyId1 = Ti.UI.createTab({
         window: $.__views.__alloyId2,
         title: "Home",
@@ -150,13 +173,13 @@ function Controller() {
     });
     __alloyId0.push($.__views.__alloyId1);
     updateGoal ? $.__views.__alloyId1.addEventListener("focus", updateGoal) : __defers["$.__views.__alloyId1!focus!updateGoal"] = true;
-    $.__views.__alloyId9 = Ti.UI.createWindow({
+    $.__views.__alloyId11 = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: "Settings",
         layout: "horizontal",
-        id: "__alloyId9"
+        id: "__alloyId11"
     });
-    $.__views.__alloyId10 = Ti.UI.createLabel({
+    $.__views.__alloyId12 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -167,9 +190,9 @@ function Controller() {
         textAlign: "center",
         left: 10,
         text: "Goal:",
-        id: "__alloyId10"
+        id: "__alloyId12"
     });
-    $.__views.__alloyId9.add($.__views.__alloyId10);
+    $.__views.__alloyId11.add($.__views.__alloyId12);
     $.__views.goalField = Ti.UI.createTextField({
         left: 10,
         width: 100,
@@ -178,27 +201,27 @@ function Controller() {
         returnKeyType: Ti.UI.RETURNKEY_DONE,
         id: "goalField"
     });
-    $.__views.__alloyId9.add($.__views.goalField);
+    $.__views.__alloyId11.add($.__views.goalField);
     saveGoal ? $.__views.goalField.addEventListener("change", saveGoal) : __defers["$.__views.goalField!change!saveGoal"] = true;
     $.__views.fbLoginButton = Alloy.Globals.Facebook.createLoginButton({
         id: "fbLoginButton",
         ns: "Alloy.Globals.Facebook"
     });
-    $.__views.__alloyId9.add($.__views.fbLoginButton);
+    $.__views.__alloyId11.add($.__views.fbLoginButton);
     $.__views.postButton = Ti.UI.createButton({
         title: "Post",
         id: "postButton",
         visible: "false"
     });
-    $.__views.__alloyId9.add($.__views.postButton);
+    $.__views.__alloyId11.add($.__views.postButton);
     doFBPost ? $.__views.postButton.addEventListener("click", doFBPost) : __defers["$.__views.postButton!click!doFBPost"] = true;
-    $.__views.__alloyId8 = Ti.UI.createTab({
-        window: $.__views.__alloyId9,
+    $.__views.__alloyId10 = Ti.UI.createTab({
+        window: $.__views.__alloyId11,
         title: "Settings",
         icon: "KS_nav_views.png",
-        id: "__alloyId8"
+        id: "__alloyId10"
     });
-    __alloyId0.push($.__views.__alloyId8);
+    __alloyId0.push($.__views.__alloyId10);
     $.__views.index = Ti.UI.createTabGroup({
         tabs: __alloyId0,
         id: "index"
@@ -219,6 +242,8 @@ function Controller() {
     $.index.open();
     updateGoal();
     __defers["$.__views.addButton!click!addAmount"] && $.__views.addButton.addEventListener("click", addAmount);
+    __defers["$.__views.__alloyId8!click!saveFile"] && $.__views.__alloyId8.addEventListener("click", saveFile);
+    __defers["$.__views.__alloyId9!click!loadFile"] && $.__views.__alloyId9.addEventListener("click", loadFile);
     __defers["$.__views.__alloyId1!focus!updateGoal"] && $.__views.__alloyId1.addEventListener("focus", updateGoal);
     __defers["$.__views.goalField!change!saveGoal"] && $.__views.goalField.addEventListener("change", saveGoal);
     __defers["$.__views.goalDoneButton!click!doneGoal"] && $.__views.goalDoneButton.addEventListener("click", doneGoal);

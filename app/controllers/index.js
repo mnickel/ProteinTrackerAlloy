@@ -58,3 +58,19 @@ function doFBPost() {
 	var facebook = Alloy.Globals.Facebook;
 	facebook.dialog("feed", data, function(e) {});
 }
+
+function saveFile(){
+	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'test.txt');
+	if( file.exists ) {
+		file.deleteFile();
+	}
+	
+	file.write(total.toString());
+	file = null;
+}
+
+function loadFile() {
+	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'test.txt');
+	alert("Total read: " + file.read().text);
+	file = null;
+}
